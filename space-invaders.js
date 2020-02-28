@@ -1,13 +1,20 @@
 const canvas = document.querySelector("#space-invaders");
 const ctx = canvas.getContext("2d");
 
+var x = canvas.width / 2;
+var y = canvas.height - 200;
 
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.beginPath();
+  ctx.rect(x, y, 125, 125); 
+  ctx.stroke();
+  ctx.fill();
+  ctx.closePath();
+  x += 5;
+}
 
-ctx.beginPath();
-ctx.rect(700, 850, 125, 125);
-ctx.stroke();
-ctx.fill();
-ctx.closePath();
+setInterval(draw, 100);
 
 // const MOVE_AMOUNT = 10;
 
@@ -15,8 +22,6 @@ ctx.closePath();
 
 // let x = Math.floor(Math.random() * width);
 // let y = Math.floor(Math.random() * height);
-
-
 
 // function draw({ key }) {
 //   hue = hue + 10;
@@ -39,7 +44,7 @@ ctx.closePath();
 //       break;
 //     default:
 //       break;
-      
+
 //   }
 //   ctx.lineTo(x, y);
 //   ctx.stroke();
@@ -51,7 +56,6 @@ ctx.closePath();
 //     draw({ key: e.key });
 //   }
 // }
-
 
 // function makeSquare() {
 //   // x and y have a value at this point
@@ -69,7 +73,5 @@ ctx.closePath();
 //   y -= 150;
 //   ctx.stroke();
 // }
-
-
 
 // window.addEventListener("keydown", handleKey);
