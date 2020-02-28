@@ -1,20 +1,48 @@
 const canvas = document.querySelector("#space-invaders");
 const ctx = canvas.getContext("2d");
 
-var x = canvas.width / 2;
-var y = canvas.height - 200;
+let x = canvas.width / 2;
+let y = canvas.height - 200;
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Update x depending on pressed keys
+
+  drawShip();
+}
+
+function drawShip() {
   ctx.beginPath();
-  ctx.rect(x, y, 125, 125); 
+  ctx.rect(x, y, 125, 125);
   ctx.stroke();
   ctx.fill();
   ctx.closePath();
-  x += 5;
 }
 
 setInterval(draw, 100);
+
+function moveShip(event) {
+  console.log(event.keyCode);
+  switch (event.keyCode) {
+    case 37:
+      console.log(`left arrow pressed`);
+      x -= 5;
+      break;
+    case 39:
+      console.log(`right arrow pressed`);
+      x += 5;
+      break;
+  }
+}
+
+document.addEventListener("keydown", moveShip);
+
+// Step 1
+// Add two variables - leftPressed and rightPressed
+// Add keydown and keyup event listeners
+// Add functions that are called
+//
 
 // const MOVE_AMOUNT = 10;
 
