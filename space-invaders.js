@@ -7,6 +7,13 @@ let y = canvas.height - 200;
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+  if (leftPressed === true) {
+    x -= 5;
+  }
+
+  if (rightPressed === true) {
+    x += 5;
+  }
   drawShip();
 }
 
