@@ -11,7 +11,6 @@ function draw() {
 
   if (leftPressed === true && x - 5 > 0) {
     x -= 25;
-    console.log(x);
   }
 
   if (rightPressed === true && x + 5 < 1475) {
@@ -34,10 +33,8 @@ function handleKeyDown(event) {
   console.log(event);
   if (event.keyCode === 37) {
     leftPressed = true;
-    console.log(`left pressed is true`);
   } else if (event.keyCode === 39) {
     rightPressed = true;
-    console.log(`right pressed is true`);
   }
 }
 
@@ -45,10 +42,8 @@ function handleKeyUp(event) {
   console.log(event);
   if (event.keyCode === 37) {
     leftPressed = false;
-    console.log(`left key is up`);
   } else if (event.keyCode === 39) {
     rightPressed = false;
-    console.log(`right pressed is up`);
   }
 }
 
