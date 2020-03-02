@@ -5,6 +5,9 @@ let x = canvas.width / 2;
 let y = canvas.height - 200;
 let leftPressed = false;
 let rightPressed = false;
+let enemyx = 100;
+let enemyy = 100;
+let enemyMove = true;
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -12,13 +15,35 @@ function draw() {
   if (leftPressed === true && x - 5 > 0) {
     x -= 25;
   }
-
   if (rightPressed === true && x + 5 < 1475) {
     x += 25;
   }
+  if (enemyMove === true) {
+    enemyx += 30;
+  } else {
+    enemyx -= 30;
+  }
+  if (enemyx >= 1500) {
+    enemyMove = false;
+    enemyy += 50;
+  }
+  if (enemyx <= 0) {
+    enemyMove = true;
+    enemyy += 50;
+  }
+ 
+
   drawShip();
+  drawEnemy();
 }
 
+function drawEnemy() {
+  ctx.beginPath();
+  ctx.rect(enemyx, enemyy, 100, 100);
+  ctx.stroke();
+  ctx.fill();
+  ctx.closePath();
+}
 function drawShip() {
   ctx.beginPath();
   ctx.rect(x, y, 125, 125);
@@ -26,7 +51,7 @@ function drawShip() {
   ctx.fill();
   ctx.closePath();
 }
-
+//  add enemy
 setInterval(draw, 100);
 
 function handleKeyDown(event) {
