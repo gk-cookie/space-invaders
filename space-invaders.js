@@ -7,8 +7,6 @@ let y = canvas.height - 200;
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Update x depending on pressed keys
-
   drawShip();
 }
 
@@ -22,21 +20,42 @@ function drawShip() {
 
 setInterval(draw, 100);
 
-function moveShip(event) {
-  console.log(event.keyCode);
-  switch (event.keyCode) {
-    case 37:
-      console.log(`left arrow pressed`);
-      x -= 5;
-      break;
-    case 39:
-      console.log(`right arrow pressed`);
-      x += 5;
-      break;
+function handleKeyDown(event) {
+  if (event.keyCode === 37) {
+    leftPressed = true;
+    console.log(`left pressed is true`);
+  } else if (event.keyCode === 39) {
+    rightPressed = true;
+    console.log(`right pressed is true`);
   }
 }
 
-document.addEventListener("keydown", moveShip);
+function handleKeyUp(event) {
+  if (event.keyCode !== 37) {
+    leftPressed = false;
+    console.log(`left key is up`);
+  } else if (event.keyCode !== 39) {
+    rightPressed = false;
+    console.log(`right pressed is up`);
+  }
+}
+
+// function moveShip(event) {
+//   console.log(event.keyCode);
+//   switch (event.keyCode) {
+//     case 37:
+//       console.log(`left arrow pressed`);
+//       x -= 5;
+//       break;
+//     case 39:
+//       console.log(`right arrow pressed`);
+//       x += 5;
+//       break;
+//   }
+// }
+
+document.addEventListener("keydown", handleKeyDown);
+document.addEventListener("keyup", handleKeyUp);
 
 // Step 1
 // Add two variables - leftPressed and rightPressed
