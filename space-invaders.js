@@ -3,16 +3,19 @@ const ctx = canvas.getContext("2d");
 
 let x = canvas.width / 2;
 let y = canvas.height - 200;
+let leftPressed = false;
+let rightPressed = false;
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  if (leftPressed === true) {
-    x -= 5;
+  if (leftPressed === true && x - 5 > 0) {
+    x -= 25;
+    console.log(x);
   }
 
-  if (rightPressed === true) {
-    x += 5;
+  if (rightPressed === true && x + 5 < 1475) {
+    x += 25;
   }
   drawShip();
 }
@@ -28,6 +31,7 @@ function drawShip() {
 setInterval(draw, 100);
 
 function handleKeyDown(event) {
+  console.log(event);
   if (event.keyCode === 37) {
     leftPressed = true;
     console.log(`left pressed is true`);
@@ -38,10 +42,11 @@ function handleKeyDown(event) {
 }
 
 function handleKeyUp(event) {
-  if (event.keyCode !== 37) {
+  console.log(event);
+  if (event.keyCode === 37) {
     leftPressed = false;
     console.log(`left key is up`);
-  } else if (event.keyCode !== 39) {
+  } else if (event.keyCode === 39) {
     rightPressed = false;
     console.log(`right pressed is up`);
   }
