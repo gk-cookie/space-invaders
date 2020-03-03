@@ -8,9 +8,10 @@ let rightPressed = false;
 let spacePressed = false;
 let enemyX = 100;
 let enemyY = 100;
-let bulletX = x + 50;
-let bulletY = y - 25;
+let bulletX = -1;
+let bulletY = -200;
 let enemyMove = false;
+let bullets = [];
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -34,14 +35,20 @@ function draw() {
     enemyMove = false;
     enemyY += 50;
   }
-  
-  
+  if (spacePressed === true) {
+    const newBullet = {
+      x: x + 50,
+      y: y - 25
+    };
+    bullets.push(newBullet);
+    console.log(bullets);
+  }
+
+  bulletY -= 15;
+  drawBullet();
+
   drawShip();
   drawEnemy();
-  if (spacePressed === true) {
-    drawBullet();
-    bulletY -= 15;
-  }
 }
 
 function drawEnemy() {
@@ -84,7 +91,8 @@ function handleKeyUp(event) {
     leftPressed = false;
   } else if (event.keyCode === 39) {
     rightPressed = false;
-  
+  } else if (event.keyCode === 32) {
+    spacePressed = false;
   }
 }
 
