@@ -8,8 +8,6 @@ let rightPressed = false;
 let spacePressed = false;
 let enemyX = 100;
 let enemyY = 100;
-let bulletX = -1;
-let bulletY = -200;
 let enemyMove = false;
 let bullets = [];
 
@@ -44,8 +42,7 @@ function draw() {
     console.log(bullets);
   }
 
-  bulletY -= 15;
-  drawBullet();
+  drawBullets();
 
   drawShip();
   drawEnemy();
@@ -66,12 +63,16 @@ function drawShip() {
   ctx.closePath();
 }
 
-function drawBullet() {
-  ctx.beginPath();
-  ctx.rect(bulletX, bulletY, 25, 25);
-  ctx.stroke();
-  ctx.fill();
-  ctx.closePath();
+function drawBullets() {
+  for (let i = bullets.length - 1; i > 0; i--) {
+    ctx.beginPath();
+    ctx.rect(bullets[i].x, bullets[i].y, 25, 25);
+    ctx.stroke();
+    ctx.fill();
+    ctx.closePath();  
+    bullets[i].y -= 15;
+  }
+  
 }
 setInterval(draw, 100);
 
