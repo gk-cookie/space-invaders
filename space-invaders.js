@@ -5,14 +5,17 @@ let x = canvas.width / 2;
 let y = canvas.height - 200;
 let leftPressed = false;
 let rightPressed = false;
-let spacePressed = false;
 let enemyX = 100;
 let enemyY = 100;
 let enemyMove = false;
 let bullets = [];
+let frameCounter = 0;
+let lastFired = 0;
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  frameCounter++;
 
   if (leftPressed === true && x - 5 > 0) {
     x -= 25;
@@ -33,17 +36,8 @@ function draw() {
     enemyMove = false;
     enemyY += 50;
   }
-  if (spacePressed === true) {
-    const newBullet = {
-      x: x + 50,
-      y: y - 25
-    };
-    bullets.push(newBullet);
-    console.log(bullets);
-  }
 
   drawBullets();
-
   drawShip();
   drawEnemy();
 }
@@ -55,6 +49,7 @@ function drawEnemy() {
   ctx.fill();
   ctx.closePath();
 }
+
 function drawShip() {
   ctx.beginPath();
   ctx.rect(x, y, 125, 125);
@@ -63,18 +58,33 @@ function drawShip() {
   ctx.closePath();
 }
 
+function addBullet() {
+  const frameSinceBullet = frameCounter - lastFired;
+
+  if (frameSinceBullet > 5) {
+    const newBullet = {
+      x: x + 50,
+      y: y - 25
+    };
+    bullets.push(newBullet);
+    lastFired = frameCounter;
+  }
+}
+
 function drawBullets() {
-  for (let i = bullets.length - 1; i > 0; i--) {
+  for (let i = bullets.length - 1; i >= 0; i--) {
     ctx.beginPath();
     ctx.rect(bullets[i].x, bullets[i].y, 25, 25);
     ctx.stroke();
     ctx.fill();
-    ctx.closePath();  
+    ctx.closePath();
     bullets[i].y -= 15;
+    if (bullets[i].y < 0) {
+      bullets.splice(i, 1);
+    }
   }
-  
 }
-setInterval(draw, 100);
+setInterval(draw, 50);
 
 function handleKeyDown(event) {
   if (event.keyCode === 37) {
@@ -82,8 +92,8 @@ function handleKeyDown(event) {
   } else if (event.keyCode === 39) {
     rightPressed = true;
   } else if (event.keyCode === 32) {
-    spacePressed = true;
-    console.log(`Space Pressed`);
+    addBullet();
+    lastFired++;
   }
 }
 
@@ -92,8 +102,6 @@ function handleKeyUp(event) {
     leftPressed = false;
   } else if (event.keyCode === 39) {
     rightPressed = false;
-  } else if (event.keyCode === 32) {
-    spacePressed = false;
   }
 }
 
