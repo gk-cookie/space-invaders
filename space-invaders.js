@@ -9,14 +9,13 @@ let enemyX = 100;
 let enemyY = 100;
 let enemyMove = false;
 let bullets = [];
+let enemies = [];
 let frameCounter = 0;
 let lastFired = 0;
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
   frameCounter++;
-
   if (leftPressed === true && x - 5 > 0) {
     x -= 25;
   }
@@ -36,11 +35,23 @@ function draw() {
     enemyMove = false;
     enemyY += 50;
   }
-
+  bulletHits();
   drawBullets();
   drawShip();
   drawEnemy();
 }
+
+// function drawEnemy()  {
+//   for (let i = 0; i > 5; i++){
+//  console.log(`hi`);
+ 
+//     ctx.beginPath();
+//   ctx.rect(enemies[i].enemyX, enemies[i].enemyY, 100, 100);
+//   ctx.stroke();
+//   ctx.fill();
+//   ctx.closePath();
+// }
+// }
 
 function drawEnemy() {
   ctx.beginPath();
@@ -49,7 +60,6 @@ function drawEnemy() {
   ctx.fill();
   ctx.closePath();
 }
-
 function drawShip() {
   ctx.beginPath();
   ctx.rect(x, y, 125, 125);
@@ -59,6 +69,8 @@ function drawShip() {
 }
 
 function addBullet() {
+  // console.log("add bullet", lastFired, frameCounter);
+
   const frameSinceBullet = frameCounter - lastFired;
 
   if (frameSinceBullet > 5) {
@@ -84,6 +96,17 @@ function drawBullets() {
     }
   }
 }
+
+function bulletHits() {
+  for (let i = bullets.length - 1; i >= 0; i--) {
+    if (((bullets[i].x + 25) > enemyX) && (bullets[i].x < (enemyX + 100))) {
+      console.log(`it might hit`);
+      enemyY = 100;
+      enemyX = 100;  
+    }
+  }
+}
+// || enemyY + 100 && enemyX + 100
 setInterval(draw, 50);
 
 function handleKeyDown(event) {
@@ -93,7 +116,6 @@ function handleKeyDown(event) {
     rightPressed = true;
   } else if (event.keyCode === 32) {
     addBullet();
-    lastFired++;
   }
 }
 
