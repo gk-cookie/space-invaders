@@ -42,11 +42,17 @@ function draw() {
 }
 
 function drawEnemy() {
-  ctx.beginPath();
-  ctx.rect(enemyX, enemyY, 100, 100);
-  ctx.stroke();
-  ctx.fill();
-  ctx.closePath();
+  for (let j = enemies.length - 1; j >= 0; j--) {
+    ctx.beginPath();
+    ctx.rect(enemies[j].x, enemies[j].y, 100, 100);
+    ctx.stroke();
+    ctx.fill();
+    ctx.closePath();
+  // ctx.beginPath();
+  // ctx.rect(enemyX, enemyY, 100, 100);
+  // ctx.stroke();
+  // ctx.fill();
+  // ctx.closePath();
 }
 function drawShip() {
   ctx.beginPath();
