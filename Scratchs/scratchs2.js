@@ -4,7 +4,8 @@ let moveRight = true;
 let screenWidth = 300;
 let screenHeight = 1000;
 
-for (let i = 1; i < 20; i++) {
+
+function moveAlien() {
   if (moveRight) {
     alienX += 50;
   } else {
@@ -21,4 +22,8 @@ for (let i = 1; i < 20; i++) {
   }
 
   console.log(alienX, alienY);
+}
+
+for (let i = 1; i < 20; i++) {
+  moveAlien();
 }
