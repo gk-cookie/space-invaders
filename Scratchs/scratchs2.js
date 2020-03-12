@@ -1,17 +1,24 @@
 let alienX = 100;
 let alienY = 100;
-let moveAlien = false;
-let screenWidth = 1000;
+let moveRight = true;
+let screenWidth = 300;
 let screenHeight = 1000;
 
-for (let i = 1; i < 100; i++) {
-  console.log(alienX, alienY);
-  if (moveAlien === false && alienX < screenWidth) {
-    alienX += 20;
+for (let i = 1; i < 20; i++) {
+  if (moveRight) {
+    alienX += 50;
   } else {
-    moveAlien = true;
+    alienX -= 50;
   }
-  if (moveAlien === true && alienX > 0) {
-    alienX -= 20;
+
+  if (alienX >= screenWidth) {
+    alienY += 50;
+    moveRight = false;
   }
+  if (alienX <= 0) {
+    alienY += 50;
+    moveRight = true;
+  }
+
+  console.log(alienX, alienY);
 }
