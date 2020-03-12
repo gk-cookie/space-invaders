@@ -5,8 +5,8 @@ let x = canvas.width / 2;
 let y = canvas.height - 200;
 let leftPressed = false;
 let rightPressed = false;
-let enemyX = 100;
-let enemyY = 100;
+let alienX = 100;
+let alienY = 100;
 let enemyMove = false;
 let bullets = [];
 let enemies = [];
@@ -23,17 +23,17 @@ function draw() {
     x += 25;
   }
   if (enemyMove === false) {
-    enemyX += 30;
+    alienX += 30;
   } else {
-    enemyX -= 30;
+    alienX -= 30;
   }
-  if (enemyX >= 1500) {
+  if (alienX >= 1500) {
     enemyMove = true;
-    enemyY += 50;
+    alienY += 50;
   }
-  if (enemyX <= 0) {
+  if (alienX <= 0) {
     enemyMove = false;
-    enemyY += 50;
+    alienY += 50;
   }
   checkBullets();
   drawBullets();
@@ -92,13 +92,13 @@ function drawBullets() {
 function checkBullets() {
   for (let i = bullets.length - 1; i >= 0; i--) {
     if (
-      bullets[i].x + 25 > enemyX &&
-      bullets[i].x < enemyX + 100 &&
-      bullets[i].y + 25 > enemyY &&
-      bullets[i].y < enemyY + 100
+      bullets[i].x + 25 > alienX &&
+      bullets[i].x < alienX + 100 &&
+      bullets[i].y + 25 > alienY &&
+      bullets[i].y < alienY + 100
     ) {
-      enemyY = 100;
-      enemyX = 100;
+      alienY = 100;
+      alienX = 100;
     }
   }
 }
