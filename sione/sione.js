@@ -55,6 +55,7 @@ function draw() {
   drawShip();
   theEnemy();
   drawBullets();
+  checkBullets();
 }
 setInterval(draw, 50);
 
@@ -79,10 +80,24 @@ function addBullets() {
   if (frameSinceBullet > 5) {
     const bulletFired = {
       x: x + 37,
-      y: y - 25
+      y: y - 25,
     };
     lastFired = frameCounter;
     bullets.push(bulletFired);
+  }
+}
+
+function checkBullets() {
+  for (let i = bullets.length - 1; i >= 0; i--) {
+    if (
+      bullets[i].x + 25 > enemyX &&
+      bullets[i].x < enemyX + 100 &&
+      bullets[i].y + 25 > enemyY &&
+      bullets[i].y < enemyY + 100
+    ) {
+      enemyY = 100;
+      enemyX = 100;
+    }
   }
 }
 function handleKeyDown(event) {

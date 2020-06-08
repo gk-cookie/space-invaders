@@ -122,6 +122,7 @@ function handleKeyUp(event) {
     rightPressed = false;
   }
 }
-
 document.addEventListener("keydown", handleKeyDown);
 document.addEventListener("keyup", handleKeyUp);
+}
+
