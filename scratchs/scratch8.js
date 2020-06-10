@@ -5,21 +5,12 @@ let y = canvas.height - 200;
 let enemies = [];
 let enemyMove = false;
 
-// ctx.beginPath();
-// ctx.rect(x, y, 100, 100);
-// ctx.stroke();
-// ctx.fill();
-// ctx.closePath();
-// console.log(enemy);
-
 function initEmemy() {
   for (let j = 0; j < 5; j++) {
     enemies.push({ x: 100 + 200 * j, y: 100 });
   }
 }
 initEmemy();
-// console.log(enemies);
-// console.log(enemies.y);
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -30,7 +21,20 @@ function draw() {
     ctx.fill();
     ctx.closePath();
     enemies[j].x += 10;
-    initEmemy();
+    
+    if (enemyMove === false) {
+      enemies[j].x += 25;
+    } else {
+      enemies[j].x -= 25;
+    }
+    if (enemies[j].x >= 1500) {
+      enemyMove = true;
+      enemies[j].y += 50;
+    }
+    if (enemies[j].x <= 0) {
+      enemyMove = false;
+      enemies[j].y += 50;
+    }
   }
 }
 setInterval(draw, 50);
