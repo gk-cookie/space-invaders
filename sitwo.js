@@ -2,8 +2,8 @@ const canvas = document.querySelector("#space-invaders");
 const ctx = canvas.getContext("2d");
 let x = canvas.width / 2;
 let y = canvas.height - 200;
-let enemyX = 100;
-let enemyY = 100;
+let enemy = [];
+// let enemy = 100;
 let enemyMove = false;
 let leftPress = false;
 let rightPress = false;
@@ -11,13 +11,6 @@ let bullets = [];
 let frameCounter = 0;
 let lastFired = 0;
 
-function theEnemy() {
-  ctx.beginPath();
-  ctx.rect(enemyX, enemyY, 100, 100);
-  ctx.stroke();
-  ctx.fill();
-  ctx.closePath();
-}
 
 function drawShip() {
   ctx.beginPath();
@@ -36,19 +29,19 @@ function draw() {
     x += 15;
     console.log(x);
   }
-
+  
   if (enemyMove === false) {
-    enemyX += 25;
+    enemy.x += 25;
   } else {
-    enemyX -= 25;
+    enemy.x -= 25;
   }
-  if (enemyX >= 1500) {
+  if (enemy.x >= 1500) {
     enemyMove = true;
-    enemyY += 50;
+    enemy.y += 50;
   }
-  if (enemyX <= 0) {
+  if (enemy.x <= 0) {
     enemyMove = false;
-    enemyY += 50;
+    enemy.y += 50;
   }
   frameCounter++;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -73,6 +66,15 @@ function drawBullets() {
     }
   }
 }
+function theEnemy() {
+enemy.push[{x: 100, y: 100}];
+  // for (let j = enemy.length - 1; j < 5; j++)
+  ctx.beginPath();
+  ctx.rect(enemy.x, enemy.y, 100, 100);
+  ctx.stroke();
+  ctx.fill();
+  ctx.closePath();
+}
 
 function addBullets() {
   const frameSinceBullet = frameCounter - lastFired;
@@ -90,13 +92,13 @@ function addBullets() {
 function checkBullets() {
   for (let i = bullets.length - 1; i >= 0; i--) {
     if (
-      bullets[i].x + 25 > enemyX &&
-      bullets[i].x < enemyX + 100 &&
-      bullets[i].y + 25 > enemyY &&
-      bullets[i].y < enemyY + 100
+      bullets[i].x + 25 > enemy[j].x &&
+      bullets[i].x < enemy[j].x + 100 &&
+      bullets[i].y + 25 > enemy[j].y &&
+      bullets[i].y < enemy[j].y + 100
     ) {
-      alienY = 100;
-      alienX = 100;
+      enemy[j].y = 100;
+      enemy[j].x = 100;
     }
   }
 }
