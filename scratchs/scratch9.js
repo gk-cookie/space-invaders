@@ -5,6 +5,8 @@ let y = canvas.height - 200;
 let leftPress = false;
 let rightPress = false;
 let bullets = [];
+let frameCounter = 0;
+let lastFired = 0;
 
 function spaceship() {
   ctx.beginPath();
@@ -19,6 +21,7 @@ function clearCanvas() {
 
 function draw() {
   clearCanvas();
+  frameCounter++
   spaceship();
   drawBullets();
 }
@@ -40,12 +43,17 @@ function drawBullets() {
 }
 
 function addBullets() {
-  const newBullet = {
-    x: x + 37,
-    y: y - 25,
-  };
-  bullets.push(newBullet);
-  console.log(bullets);
+  const frameSinceBullet = frameCounter - lastFired;
+
+  if (frameSinceBullet > 5) {
+    const newBullet = {
+      x: x + 37,
+      y: y - 25,
+    };
+    lastFired = frameCounter;
+    bullets.push(newBullet);
+    console.log(bullets);
+  }
 }
 
 function handleKeyDown(event) {
