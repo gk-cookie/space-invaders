@@ -27,8 +27,16 @@ function drawEnemy() {
 
 function enemyMove() {
   for (let enemy of enemies) {
-    enemy = enemies[i].x;
-    enemy += 10;
+    enemy.x +=10 * enemy.direction;
+    if(enemy.x >= 1500) {
+      enemy.y += 110;
+      enemy.direction = -1;
+    }
+    if (enemy.x <=0 ) {
+      enemy.y += 110;
+      enemy.direction = 1;
+    }
+   
   }
 }
 
