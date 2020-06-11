@@ -4,6 +4,7 @@ let x = canvas.width / 2;
 let y = canvas.height - 200;
 let leftPress = false;
 let rightPress = false;
+let bullets = [];
 
 function spaceship() {
   ctx.beginPath();
@@ -19,9 +20,33 @@ function clearCanvas() {
 function draw() {
   clearCanvas();
   spaceship();
+  drawBullets();
 }
 
 setInterval(draw, 50);
+
+function drawBullets() {
+  for (let i = bullets.length - 1; i >= 0; i--) {
+    ctx.beginPath();
+    ctx.rect(bullets[i].x, bullets[i].y, 25, 25);
+    ctx.stroke();
+    ctx.fill();
+    ctx.closePath();
+    bullets[i].y -= 15;
+    if (bullets[i].y < 0) {
+      bullets.splice(i, 1);
+    }
+  }
+}
+
+function addBullets() {
+  const newBullet = {
+    x: x + 37,
+    y: y - 25,
+  };
+  bullets.push(newBullet);
+  console.log(bullets);
+}
 
 function handleKeyDown(event) {
   if (event.keyCode === 37) {
@@ -43,14 +68,16 @@ function handleKeyDown(event) {
 }
 
 function handleKeyUp(event) {
-    if (event.keyCode === 37) {
-      leftPress = false;
-    } else if (event.keyCode === 39) {
-      rightPress = false;
-    } else if (event.keyCode === 32) {
-    }
-  }
+  if (event.keyCode === 37) {
+    leftPress = false;
+  } else if (event.keyCode === 39) {
+    rightPress = false;
+  } else if (event.keyCode === 32) {
+    console.log("space pressed");
 
-  
+    addBullets();
+  }
+}
+
 document.addEventListener("keydown", handleKeyDown);
 document.addEventListener("keyup", handleKeyUp);
